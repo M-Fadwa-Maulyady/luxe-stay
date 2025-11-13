@@ -13,4 +13,10 @@ class Kategori extends Model
         'kode_kategori',
         'nama_kategori',
     ];
+
+    public function penginapan()
+    {
+        return $this->hasMany(Penginapan::class);
+    }
+
 }
