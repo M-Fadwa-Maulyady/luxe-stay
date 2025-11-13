@@ -30,7 +30,7 @@
             </li>
 
             <!-- Fasilitas -->
-            <li class="menu-item {{ request()->is('fasilitas*') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->is('fasilitas') ? 'active' : '' }}">
                 <a href="/fasilitas">
                     <i class="fa fa-bed"></i>
                     <span>Fasilitas</span>
