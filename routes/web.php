@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\KategoriController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -12,3 +13,9 @@ Route::get('/dashboard', function () {
     ]);
 });
 
+    Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori');
+    Route::get('/kategori/create', [KategoriController::class, 'create'])->name('createKategori');
+    Route::post('/kategori/store', [KategoriController::class, 'store'])->name('storeKategori');
+    Route::get('/kategori/edit/{id}', [KategoriController::class, 'edit'])->name('editKategori');
+    Route::put('/kategori/update/{id}', [KategoriController::class, 'update'])->name('updateKategori');
+    Route::delete('/kategori/delete/{id}', [KategoriController::class, 'destroy'])->name('deleteKategori');
