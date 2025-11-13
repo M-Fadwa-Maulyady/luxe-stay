@@ -124,4 +124,11 @@ body {
     font-weight: 500;
 }
 
+.menu-item a {
+    display: flex;
+    align-items: center;
+    color: inherit;
+    text-decoration: none;
+    width: 100%;
+}
 
