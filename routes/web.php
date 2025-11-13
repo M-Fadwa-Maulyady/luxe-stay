@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\PenginapanController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -27,3 +28,10 @@ Route::get('/dashboard', function () {
     Route::get('/fasilitas/edit/{id}', [FasilitasController::class, 'edit'])->name('editFasilitas');
     Route::put('/fasilitas/update/{id}', [FasilitasController::class, 'update'])->name('updateFasilitas');
     Route::delete('/fasilitas/delete/{id}', [FasilitasController::class, 'destroy'])->name('deleteFasilitas');
+
+    Route::get('/penginapan', [PenginapanController::class, 'index'])->name('penginapan');
+    Route::get('/penginapan/create', [PenginapanController::class, 'create'])->name('createPenginapan');
+    Route::post('/penginapan/store', [PenginapanController::class, 'store'])->name('storePenginapan');
+    Route::get('/penginapan/edit/{id}', [PenginapanController::class, 'edit'])->name('editPenginapan');
+    Route::put('/penginapan/update/{id}', [PenginapanController::class, 'update'])->name('updatePenginapan');
+    Route::delete('/penginapan/delete/{id}', [PenginapanController::class, 'destroy'])->name('deletePenginapan');

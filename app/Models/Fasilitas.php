@@ -13,4 +13,12 @@ class Fasilitas extends Model
         'kode_fasilitas',
         'nama_fasilitas',
     ];
+
+    public function penginapan()
+    {
+        return $this->belongsToMany(Penginapan::class, 'penginapan_fasilitas');
+    }
+
 }
+
+

@@ -22,7 +22,7 @@
             </li>
 
             <!-- Penginapan -->
-            <li class="menu-item {{ request()->is('penginapan*') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->is('penginapan') ? 'active' : '' }}">
                 <a href="/penginapan">
                     <i class="fa fa-hotel"></i>
                     <span>Penginapan</span>
