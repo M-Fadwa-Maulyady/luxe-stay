@@ -15,6 +15,10 @@ Route::get('/dashboard', function () {
     ]);
 });
 
+Route::get('/landing', function () {
+    return view('landing');
+});
+
     Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori');
     Route::get('/kategori/create', [KategoriController::class, 'create'])->name('createKategori');
     Route::post('/kategori/store', [KategoriController::class, 'store'])->name('storeKategori');
