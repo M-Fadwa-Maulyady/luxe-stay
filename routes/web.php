@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PenginapanController;
@@ -39,6 +40,9 @@ Route::get('/', function () {
     Route::get('/penginapan/edit/{id}', [PenginapanController::class, 'edit'])->name('editPenginapan');
     Route::put('/penginapan/update/{id}', [PenginapanController::class, 'update'])->name('updatePenginapan');
     Route::delete('/penginapan/delete/{id}', [PenginapanController::class, 'destroy'])->name('deletePenginapan');
+
+    Route::get('/contact', [ContactController::class, 'index']);
+    Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 Route::get('/hotel', function () {
     return view('detail.hotel');
