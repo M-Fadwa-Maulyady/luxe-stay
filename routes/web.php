@@ -6,7 +6,7 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PenginapanController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return view('welcome');
 });
 
@@ -16,7 +16,7 @@ Route::get('/dashboard', function () {
     ]);
 });
 
-Route::get('/landing', function () {
+Route::get('/', function () {
     return view('landing');
 });
 
@@ -43,3 +43,15 @@ Route::get('/landing', function () {
 
     Route::get('/contact', [ContactController::class, 'index']);
     Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+Route::get('/hotel', function () {
+    return view('detail.hotel');
+});
+
+Route::get('/villa', function () {
+    return view('detail.villa');
+});
+
+Route::get('/apartemen', function () {
+    return view('detail.apartemen');
+});
