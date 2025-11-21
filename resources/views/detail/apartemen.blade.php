@@ -42,9 +42,11 @@
                     dengan konsep yang nyaman, aman, dan eksklusif untuk keluarga.
                 </p>
 
-                <button class="bg-[#D9C183] text-white font-semibold px-6 py-2 rounded-lg">
-                    CHECK NOW
-                </button>
+<a href="/syariah">
+    <button class="bg-[#D8C07A] text-white font-bold px-6 py-2 rounded-lg">
+        CHECK NOW
+    </button>
+</a>
 
             </div>
 
@@ -78,10 +80,11 @@
                     Apartemen Center Point dirancang untuk kenyamanan & akses mudah ke pusat kota,
                     cocok untuk wisatawan yang suka fasilitas modern & lokasi strategis.
                 </p>
-
-                <button class="bg-[#D9C183] text-white font-semibold px-6 py-2 rounded-lg">
-                    CHECK NOW
-                </button>
+<a href="/center">
+    <button class="bg-[#D8C07A] text-white font-bold px-6 py-2 rounded-lg">
+        CHECK NOW
+    </button>
+</a>
 
             </div>
 
