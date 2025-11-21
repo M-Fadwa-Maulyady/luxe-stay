@@ -45,9 +45,11 @@
                 </p>
 
                 <!-- Button -->
-                <button class="bg-[#D9C183] text-white font-semibold px-6 py-2 rounded-lg">
-                    CHECK NOW
-                </button>
+                <a href="/hawai">
+    <button class="bg-[#D8C07A] text-white font-bold px-6 py-2 rounded-lg">
+        CHECK NOW
+    </button>
+</a>
             </div>
 
             <!-- Right -->
@@ -81,9 +83,11 @@
                     Didesain dengan sentuhan kayu alami dan suasana privat untuk kenyamanan maksimal.
                 </p>
 
-                <button class="bg-[#D9C183] text-white font-semibold px-6 py-2 rounded-lg">
-                    CHECK NOW
-                </button>
+                            <a href="/tropis">
+    <button class="bg-[#D8C07A] text-white font-bold px-6 py-2 rounded-lg">
+        CHECK NOW
+    </button>
+</a>
             </div>
 
             <div class="w-1/2 text-center">

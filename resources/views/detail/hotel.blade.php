@@ -45,9 +45,12 @@
                     dilengkapi fasilitas premium dan layanan eksklusif.
                 </p>
 
-                <button class="bg-[#D8C07A] text-white font-bold px-6 py-2 rounded-lg">
-                    CHECK NOW
-                </button>
+                <a href="/hilton">
+    <button class="bg-[#D8C07A] text-white font-bold px-6 py-2 rounded-lg">
+        CHECK NOW
+    </button>
+</a>
+
             </div>
 
             <!-- Right Image & Price -->
@@ -81,9 +84,12 @@
                     Terletak strategis di tepi pantai dengan pemandangan laut yang menakjubkan.
                 </p>
 
-                <button class="bg-[#D8C07A] text-white font-bold px-6 py-2 rounded-lg">
-                    CHECK NOW
-                </button>
+                <a href="/radisson">
+    <button class="bg-[#D8C07A] text-white font-bold px-6 py-2 rounded-lg">
+        CHECK NOW
+    </button>
+</a>
+
             </div>
 
             <!-- Right Image & Price -->

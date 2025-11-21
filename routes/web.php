@@ -55,3 +55,27 @@ Route::get('/villa', function () {
 Route::get('/apartemen', function () {
     return view('detail.apartemen');
 });
+
+Route::get('/hilton', function () {
+    return view('check.hilton');
+});
+
+Route::get('/radisson', function () {
+    return view('check.radisson');
+});
+
+Route::get('/hawai', function () {
+    return view('check.hawai');
+});
+
+Route::get('/tropis', function () {
+    return view('check.tropis');
+});
+
+Route::get('/syariah', function () {
+    return view('check.syariah');
+});
+
+Route::get('/center', function () {
+    return view('check.center');
+});
