@@ -79,3 +79,13 @@ Route::get('/syariah', function () {
 Route::get('/center', function () {
     return view('check.center');
 });
+
+
+
+// Halaman profil
+Route::get('/profile', function () {
+    return view('profile');
+})->name('profile');
+
+
+

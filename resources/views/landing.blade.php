@@ -36,6 +36,16 @@
             }
         }
     </script>
+    <style>
+    @keyframes dropdownFade {
+        0% { opacity: 0; transform: translateY(-10px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .dropdown-animate {
+        animation: dropdownFade 0.25s ease-out;
+    }
+</style>
 </head>
 
 <body class="bg-gray-50 text-gray-900 opacity-0 animate-fadeIn">
@@ -54,11 +64,20 @@
             <li><a class="hover:text-luxe-accent transition" href="#contact">Contact us</a></li>
         </ul>
 
-        <div class="text-white text-2xl hover:text-luxe-accent cursor-pointer transition">
-            <i class="fa-solid fa-user"></i>
-        </div>
-    </nav>
+        <!-- USER DROPDOWN -->
+<div class="relative z-50">
+    <button id="userBtn" class="text-white text-2xl hover:text-luxe-accent cursor-pointer transition">
+        <i class="fa-solid fa-user"></i>
+    </button>
 
+    <div id="userMenu"
+        class="hidden absolute right-0 mt-3 bg-white text-black py-2 w-40 rounded-lg shadow-lg border">
+        <a href="/profile" class="block px-4 py-2 hover:bg-gray-100 text-sm">Profil</a>
+        <a href="/history" class="block px-4 py-2 hover:bg-gray-100 text-sm">History</a>
+        <a href="/logout" class="block px-4 py-2 hover:bg-red-100 text-sm text-red-600">Logout</a>
+    </div>
+</div>
+    </nav>
 
     <!-- HERO SECTION -->
     <section class="relative h-[90vh] bg-cover bg-center animate-zoomIn"
@@ -77,7 +96,6 @@
             </a>
         </div>
     </section>
-
 
     <!-- STAY SECTION -->
     <section id="stay" class="bg-luxe-dark text-white py-16 text-center">
@@ -103,7 +121,6 @@
         </div>
     </section>
 
-
     <!-- PROMO SECTION -->
     <section id="promo" class="py-16 text-center bg-white">
         <h2 class="text-3xl font-bold mb-8 text-luxe-dark font-montserrat animate-fadeUp">Jangan sampai kelewatan promo!</h2>
@@ -116,7 +133,8 @@
                 <div class="p-4 text-white">
                     <h3 class="text-2xl font-bold mb-1 font-montserrat">PROMO: Hilton Hotel</h3>
                     <p class="text-sm text-luxe-accent mb-3">Diskon 30% untuk pemesanan 3 malam!</p>
-                    <a href="#" class="inline-block bg-luxe-accent text-luxe-dark px-4 py-2 rounded-lg font-semibold hover:scale-105 transition">
+                    <a href="#"
+                        class="inline-block bg-luxe-accent text-luxe-dark px-4 py-2 rounded-lg font-semibold hover:scale-105 transition">
                         Lihat Detail
                     </a>
                 </div>
@@ -131,8 +149,7 @@
         <p class="mt-4 text-sm text-gray-400">© 2025 Luxe Stay. All rights reserved.</p>
     </footer>
 
-
-    <!-- Tailwind Custom Animations -->
+    <!-- ANIMATIONS + CARD STYLE -->
     <style>
         @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
         @keyframes fadeUp { from { opacity:0; transform:translateY(20px) } to { opacity:1; transform:translateY(0) } }
@@ -155,15 +172,42 @@
             transition: .4s;
             animation: fadeUp 1s forwards;
         }
+
         .cardStay:hover, .promoCard:hover {
             transform: translateY(-8px) scale(1.05);
         }
+
         .promoCard {
             background: #0d1b2a;
             overflow: hidden;
             box-shadow: 0 0 10px rgba(244,180,26,0.3);
         }
     </style>
-</body>
 
+    <!-- DROPDOWN SCRIPT (HARUS DI BAWAH) -->
+    <script>
+    const userBtn = document.getElementById("userBtn");
+    const userMenu = document.getElementById("userMenu");
+
+    userBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+
+        // toggle
+        userMenu.classList.toggle("hidden");
+
+        // jika muncul → kasih animasi
+        if (!userMenu.classList.contains("hidden")) {
+            userMenu.classList.remove("dropdown-animate");
+            void userMenu.offsetWidth;
+            userMenu.classList.add("dropdown-animate");
+        }
+    });
+
+    document.addEventListener("click", (e) => {
+        if (!userMenu.contains(e.target)) {
+            userMenu.classList.add("hidden");
+        }
+    });
+</script>
+</body>
 </html>
