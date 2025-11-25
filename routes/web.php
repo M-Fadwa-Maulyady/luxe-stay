@@ -1,24 +1,42 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PenginapanController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/welcome', function () {
-    return view('welcome');
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+Route::post('/register', [AuthController::class, 'register'])->name('register.post');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/', fn() => view('landing'));
+Route::get('/welcome', fn() => view('welcome'));
+
+
+// ================= USER =================
+Route::middleware('auth')->group(function () {
+    Route::get('/home', function () {
+        if (auth()->user()->role !== 'user') {
+            return redirect('/login');
+        }
+        return view('landing');
+    })->name('home.user');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard', [
-        'title' => 'Dashboard'
-    ]);
-});
 
-Route::get('/', function () {
-    return view('landing');
-});
+// ================= ADMIN =================
+Route::middleware('auth')->group(function () {
+
+    Route::get('/dashboard', function () {
+        if (auth()->user()->role !== 'admin') {
+            return redirect('/home');
+        }
+        return view('dashboard', ['title' => 'Dashboard']);
+    })->name('dashboard');
 
     Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori');
     Route::get('/kategori/create', [KategoriController::class, 'create'])->name('createKategori');
@@ -40,42 +58,18 @@ Route::get('/', function () {
     Route::get('/penginapan/edit/{id}', [PenginapanController::class, 'edit'])->name('editPenginapan');
     Route::put('/penginapan/update/{id}', [PenginapanController::class, 'update'])->name('updatePenginapan');
     Route::delete('/penginapan/delete/{id}', [PenginapanController::class, 'destroy'])->name('deletePenginapan');
-
-    Route::get('/contact', [ContactController::class, 'index']);
-    Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
-
-Route::get('/hotel', function () {
-    return view('detail.hotel');
 });
 
-Route::get('/villa', function () {
-    return view('detail.villa');
-});
+Route::get('/contact', [ContactController::class, 'index']);
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
-Route::get('/apartemen', function () {
-    return view('detail.apartemen');
-});
+Route::get('/hotel', fn() => view('detail.hotel'));
+Route::get('/villa', fn() => view('detail.villa'));
+Route::get('/apartemen', fn() => view('detail.apartemen'));
 
-Route::get('/hilton', function () {
-    return view('check.hilton');
-});
-
-Route::get('/radisson', function () {
-    return view('check.radisson');
-});
-
-Route::get('/hawai', function () {
-    return view('check.hawai');
-});
-
-Route::get('/tropis', function () {
-    return view('check.tropis');
-});
-
-Route::get('/syariah', function () {
-    return view('check.syariah');
-});
-
-Route::get('/center', function () {
-    return view('check.center');
-});
+Route::get('/hilton', fn() => view('check.hilton'));
+Route::get('/radisson', fn() => view('check.radisson'));
+Route::get('/hawai', fn() => view('check.hawai'));
+Route::get('/tropis', fn() => view('check.tropis'));
+Route::get('/syariah', fn() => view('check.syariah'));
+Route::get('/center', fn() => view('check.center'));
