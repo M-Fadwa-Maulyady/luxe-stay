@@ -1,84 +1,59 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PenginapanController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/welcome', function () {
-    return view('welcome');
+
+/*
+|--------------------------------------------------------------------------
+| AUTH ROUTES
+|--------------------------------------------------------------------------
+*/
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+Route::post('/register', [AuthController::class, 'register'])->name('register.post');
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+
+/*
+|--------------------------------------------------------------------------
+| PUBLIC ROUTES
+|--------------------------------------------------------------------------
+*/
+Route::get('/', fn() => view('landing'))->name('landing');
+
+Route::view('/welcome', 'welcome');
+Route::view('/hotel', 'detail.hotel');
+Route::view('/villa', 'detail.villa');
+Route::view('/apartemen', 'detail.apartemen');
+
+Route::view('/hilton', 'check.hilton');
+Route::view('/radisson', 'check.radisson');
+Route::view('/hawai', 'check.hawai');
+Route::view('/tropis', 'check.tropis');
+Route::view('/syariah', 'check.syariah');
+Route::view('/center', 'check.center');
+
+
+/*
+|--------------------------------------------------------------------------
+| USER ROUTES (ROLE: user)
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth', 'role:user'])->group(function () {
+
+    Route::get('/home', fn() => view('landing'))
+        ->name('home.user');
+
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard', [
-        'title' => 'Dashboard'
-    ]);
-});
-
-Route::get('/', function () {
-    return view('landing');
-});
-
-    Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori');
-    Route::get('/kategori/create', [KategoriController::class, 'create'])->name('createKategori');
-    Route::post('/kategori/store', [KategoriController::class, 'store'])->name('storeKategori');
-    Route::get('/kategori/edit/{id}', [KategoriController::class, 'edit'])->name('editKategori');
-    Route::put('/kategori/update/{id}', [KategoriController::class, 'update'])->name('updateKategori');
-    Route::delete('/kategori/delete/{id}', [KategoriController::class, 'destroy'])->name('deleteKategori');
-
-    Route::get('/fasilitas', [FasilitasController::class, 'index'])->name('fasilitas');
-    Route::get('/fasilitas/create', [FasilitasController::class, 'create'])->name('createFasilitas');
-    Route::post('/fasilitas/store', [FasilitasController::class, 'store'])->name('storeFasilitas');
-    Route::get('/fasilitas/edit/{id}', [FasilitasController::class, 'edit'])->name('editFasilitas');
-    Route::put('/fasilitas/update/{id}', [FasilitasController::class, 'update'])->name('updateFasilitas');
-    Route::delete('/fasilitas/delete/{id}', [FasilitasController::class, 'destroy'])->name('deleteFasilitas');
-
-    Route::get('/penginapan', [PenginapanController::class, 'index'])->name('penginapan');
-    Route::get('/penginapan/create', [PenginapanController::class, 'create'])->name('createPenginapan');
-    Route::post('/penginapan/store', [PenginapanController::class, 'store'])->name('storePenginapan');
-    Route::get('/penginapan/edit/{id}', [PenginapanController::class, 'edit'])->name('editPenginapan');
-    Route::put('/penginapan/update/{id}', [PenginapanController::class, 'update'])->name('updatePenginapan');
-    Route::delete('/penginapan/delete/{id}', [PenginapanController::class, 'destroy'])->name('deletePenginapan');
-
-    Route::get('/contact', [ContactController::class, 'index']);
-    Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
-
-Route::get('/hotel', function () {
-    return view('detail.hotel');
-});
-
-Route::get('/villa', function () {
-    return view('detail.villa');
-});
-
-Route::get('/apartemen', function () {
-    return view('detail.apartemen');
-});
-
-Route::get('/hilton', function () {
-    return view('check.hilton');
-});
-
-Route::get('/radisson', function () {
-    return view('check.radisson');
-});
-
-Route::get('/hawai', function () {
-    return view('check.hawai');
-});
-
-Route::get('/tropis', function () {
-    return view('check.tropis');
-});
-
-Route::get('/syariah', function () {
-    return view('check.syariah');
-});
-
-Route::get('/center', function () {
-    return view('check.center');
-});
 
 
 
@@ -92,4 +67,66 @@ Route::get('/landing', function () {
 })->name('landing');
 
 
+
+
+/*
+|--------------------------------------------------------------------------
+| ADMIN ROUTES (ROLE: admin)
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth', 'role:admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+
+        // Dashboard
+        Route::get('/dashboard', fn() =>
+            view('dashboard', ['title' => 'Dashboard'])
+        )->name('dashboard');
+
+        /*
+        |--------------------------------------------------------------------------
+        | KATEGORI CRUD
+        |--------------------------------------------------------------------------
+        */
+        Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori');
+        Route::get('/kategori/create', [KategoriController::class, 'create'])->name('kategori.create');
+        Route::post('/kategori/store', [KategoriController::class, 'store'])->name('kategori.store');
+        Route::get('/kategori/edit/{id}', [KategoriController::class, 'edit'])->name('kategori.edit');
+        Route::put('/kategori/update/{id}', [KategoriController::class, 'update'])->name('kategori.update');
+        Route::delete('/kategori/delete/{id}', [KategoriController::class, 'destroy'])->name('kategori.delete');
+
+        /*
+        |--------------------------------------------------------------------------
+        | FASILITAS CRUD
+        |--------------------------------------------------------------------------
+        */
+        Route::get('/fasilitas', [FasilitasController::class, 'index'])->name('fasilitas');
+        Route::get('/fasilitas/create', [FasilitasController::class, 'create'])->name('fasilitas.create');
+        Route::post('/fasilitas/store', [FasilitasController::class, 'store'])->name('fasilitas.store');
+        Route::get('/fasilitas/edit/{id}', [FasilitasController::class, 'edit'])->name('fasilitas.edit');
+        Route::put('/fasilitas/update/{id}', [FasilitasController::class, 'update'])->name('fasilitas.update');
+        Route::delete('/fasilitas/delete/{id}', [FasilitasController::class, 'destroy'])->name('fasilitas.delete');
+
+        /*
+        |--------------------------------------------------------------------------
+        | PENGINAPAN CRUD
+        |--------------------------------------------------------------------------
+        */
+        Route::get('/penginapan', [PenginapanController::class, 'index'])->name('penginapan');
+        Route::get('/penginapan/create', [PenginapanController::class, 'create'])->name('penginapan.create');
+        Route::post('/penginapan/store', [PenginapanController::class, 'store'])->name('penginapan.store');
+        Route::get('/penginapan/edit/{id}', [PenginapanController::class, 'edit'])->name('penginapan.edit');
+        Route::put('/penginapan/update/{id}', [PenginapanController::class, 'update'])->name('penginapan.update');
+        Route::delete('/penginapan/delete/{id}', [PenginapanController::class, 'destroy'])->name('penginapan.delete');
+    });
+
+
+/*
+|--------------------------------------------------------------------------
+| CONTACT FORM (PUBLIC)
+|--------------------------------------------------------------------------
+*/
+Route::get('/contact', [ContactController::class, 'index']);
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
