@@ -7,69 +7,111 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PenginapanController;
 use Illuminate\Support\Facades\Route;
 
+
+/*
+|--------------------------------------------------------------------------
+| AUTH ROUTES
+|--------------------------------------------------------------------------
+*/
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register.post');
+
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/', fn() => view('landing'));
-Route::get('/welcome', fn() => view('welcome'));
+
+/*
+|--------------------------------------------------------------------------
+| PUBLIC ROUTES
+|--------------------------------------------------------------------------
+*/
+Route::get('/', fn() => view('landing'))->name('landing');
+
+Route::view('/welcome', 'welcome');
+Route::view('/hotel', 'detail.hotel');
+Route::view('/villa', 'detail.villa');
+Route::view('/apartemen', 'detail.apartemen');
+
+Route::view('/hilton', 'check.hilton');
+Route::view('/radisson', 'check.radisson');
+Route::view('/hawai', 'check.hawai');
+Route::view('/tropis', 'check.tropis');
+Route::view('/syariah', 'check.syariah');
+Route::view('/center', 'check.center');
 
 
-// ================= USER =================
-Route::middleware('auth')->group(function () {
-    Route::get('/home', function () {
-        if (auth()->user()->role !== 'user') {
-            return redirect('/login');
-        }
-        return view('landing');
-    })->name('home.user');
+/*
+|--------------------------------------------------------------------------
+| USER ROUTES (ROLE: user)
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth', 'role:user'])->group(function () {
+
+    Route::get('/home', fn() => view('landing'))
+        ->name('home.user');
+
 });
 
 
-// ================= ADMIN =================
-Route::middleware('auth')->group(function () {
+/*
+|--------------------------------------------------------------------------
+| ADMIN ROUTES (ROLE: admin)
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth', 'role:admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
 
-    Route::get('/dashboard', function () {
-        if (auth()->user()->role !== 'admin') {
-            return redirect('/home');
-        }
-        return view('dashboard', ['title' => 'Dashboard']);
-    })->name('dashboard');
+        // Dashboard
+        Route::get('/dashboard', fn() =>
+            view('dashboard', ['title' => 'Dashboard'])
+        )->name('dashboard');
 
-    Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori');
-    Route::get('/kategori/create', [KategoriController::class, 'create'])->name('createKategori');
-    Route::post('/kategori/store', [KategoriController::class, 'store'])->name('storeKategori');
-    Route::get('/kategori/edit/{id}', [KategoriController::class, 'edit'])->name('editKategori');
-    Route::put('/kategori/update/{id}', [KategoriController::class, 'update'])->name('updateKategori');
-    Route::delete('/kategori/delete/{id}', [KategoriController::class, 'destroy'])->name('deleteKategori');
+        /*
+        |--------------------------------------------------------------------------
+        | KATEGORI CRUD
+        |--------------------------------------------------------------------------
+        */
+        Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori');
+        Route::get('/kategori/create', [KategoriController::class, 'create'])->name('kategori.create');
+        Route::post('/kategori/store', [KategoriController::class, 'store'])->name('kategori.store');
+        Route::get('/kategori/edit/{id}', [KategoriController::class, 'edit'])->name('kategori.edit');
+        Route::put('/kategori/update/{id}', [KategoriController::class, 'update'])->name('kategori.update');
+        Route::delete('/kategori/delete/{id}', [KategoriController::class, 'destroy'])->name('kategori.delete');
 
-    Route::get('/fasilitas', [FasilitasController::class, 'index'])->name('fasilitas');
-    Route::get('/fasilitas/create', [FasilitasController::class, 'create'])->name('createFasilitas');
-    Route::post('/fasilitas/store', [FasilitasController::class, 'store'])->name('storeFasilitas');
-    Route::get('/fasilitas/edit/{id}', [FasilitasController::class, 'edit'])->name('editFasilitas');
-    Route::put('/fasilitas/update/{id}', [FasilitasController::class, 'update'])->name('updateFasilitas');
-    Route::delete('/fasilitas/delete/{id}', [FasilitasController::class, 'destroy'])->name('deleteFasilitas');
+        /*
+        |--------------------------------------------------------------------------
+        | FASILITAS CRUD
+        |--------------------------------------------------------------------------
+        */
+        Route::get('/fasilitas', [FasilitasController::class, 'index'])->name('fasilitas');
+        Route::get('/fasilitas/create', [FasilitasController::class, 'create'])->name('fasilitas.create');
+        Route::post('/fasilitas/store', [FasilitasController::class, 'store'])->name('fasilitas.store');
+        Route::get('/fasilitas/edit/{id}', [FasilitasController::class, 'edit'])->name('fasilitas.edit');
+        Route::put('/fasilitas/update/{id}', [FasilitasController::class, 'update'])->name('fasilitas.update');
+        Route::delete('/fasilitas/delete/{id}', [FasilitasController::class, 'destroy'])->name('fasilitas.delete');
 
-    Route::get('/penginapan', [PenginapanController::class, 'index'])->name('penginapan');
-    Route::get('/penginapan/create', [PenginapanController::class, 'create'])->name('createPenginapan');
-    Route::post('/penginapan/store', [PenginapanController::class, 'store'])->name('storePenginapan');
-    Route::get('/penginapan/edit/{id}', [PenginapanController::class, 'edit'])->name('editPenginapan');
-    Route::put('/penginapan/update/{id}', [PenginapanController::class, 'update'])->name('updatePenginapan');
-    Route::delete('/penginapan/delete/{id}', [PenginapanController::class, 'destroy'])->name('deletePenginapan');
-});
+        /*
+        |--------------------------------------------------------------------------
+        | PENGINAPAN CRUD
+        |--------------------------------------------------------------------------
+        */
+        Route::get('/penginapan', [PenginapanController::class, 'index'])->name('penginapan');
+        Route::get('/penginapan/create', [PenginapanController::class, 'create'])->name('penginapan.create');
+        Route::post('/penginapan/store', [PenginapanController::class, 'store'])->name('penginapan.store');
+        Route::get('/penginapan/edit/{id}', [PenginapanController::class, 'edit'])->name('penginapan.edit');
+        Route::put('/penginapan/update/{id}', [PenginapanController::class, 'update'])->name('penginapan.update');
+        Route::delete('/penginapan/delete/{id}', [PenginapanController::class, 'destroy'])->name('penginapan.delete');
+    });
 
+
+/*
+|--------------------------------------------------------------------------
+| CONTACT FORM (PUBLIC)
+|--------------------------------------------------------------------------
+*/
 Route::get('/contact', [ContactController::class, 'index']);
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
-
-Route::get('/hotel', fn() => view('detail.hotel'));
-Route::get('/villa', fn() => view('detail.villa'));
-Route::get('/apartemen', fn() => view('detail.apartemen'));
-
-Route::get('/hilton', fn() => view('check.hilton'));
-Route::get('/radisson', fn() => view('check.radisson'));
-Route::get('/hawai', fn() => view('check.hawai'));
-Route::get('/tropis', fn() => view('check.tropis'));
-Route::get('/syariah', fn() => view('check.syariah'));
-Route::get('/center', fn() => view('check.center'));
