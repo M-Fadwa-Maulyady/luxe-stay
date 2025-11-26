@@ -41,7 +41,7 @@
 <body class="bg-gray-50 text-gray-900 opacity-0 animate-fadeIn">
 
     <!-- NAVBAR -->
-    <nav class="absolute top-0 left-0 w-full z-20 flex justify-between items-center px-10 py-4 text-white animate-slideDown">
+    <nav class="fixed top-0 left-0 w-full z-20 flex justify-between items-center px-10 py-4 text-white animate-slideDown backdrop-blur-md bg-black/20">
         <div class="bg-[#e5c38d] text-black px-6 py-4 rounded-br-[50px] text-center leading-tight font-montserrat">
             <div class="text-xl font-extrabold tracking-[4px]">LUXE</div>
             <div class="text-xs font-semibold tracking-[4px] opacity-70">S T A Y</div>

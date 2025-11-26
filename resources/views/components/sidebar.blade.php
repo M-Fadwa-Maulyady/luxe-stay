@@ -45,6 +45,14 @@
                 </a>
             </li>
 
+            <!-- Checkout -->
+            <li class="menu-item {{ request()->is('checkout*') ? 'active' : '' }}">
+                <a href="/checkout">
+                    <i class="fa fa-cart-arrow-down"></i>
+                    <span>Checkout</span>
+                </a>
+            </li>
+
             <!-- Rating -->
             <li class="menu-item {{ request()->is('rating*') ? 'active' : '' }}">
                 <a href="/rating">
@@ -53,9 +61,14 @@
                 </a>
             </li>
 
-        </ul>
 
-        <button class="logout-btn">Logout</button>
+        </ul>
+        <form action="{{ route('logout') }}" method="POST" style="margin-top: 20px;">
+            @csrf
+            <button type="submit" class="logout-btn">
+                <i class="fa fa-sign-out"></i> Logout
+            </button>
+        </form>
 
         <div class="logo-bottom">
             <h3>LUXE<br>STAY</h3>

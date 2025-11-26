@@ -5,6 +5,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PenginapanController;
+use App\Http\Controllers\RatingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
@@ -58,6 +59,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/penginapan/edit/{id}', [PenginapanController::class, 'edit'])->name('editPenginapan');
     Route::put('/penginapan/update/{id}', [PenginapanController::class, 'update'])->name('updatePenginapan');
     Route::delete('/penginapan/delete/{id}', [PenginapanController::class, 'destroy'])->name('deletePenginapan');
+
+
+    Route::get('/rating', [RatingController::class, 'index'])->name('rating.index');
 });
 
 Route::get('/contact', [ContactController::class, 'index']);

@@ -72,15 +72,20 @@ body {
 
 /* LOGOUT BUTTON */
 .logout-btn {
-    margin: 20px 15px;
-    padding: 10px;
+    margin: 10px 0px;
+    width: 100%;
     background: #e74c3c;
     color: white;
     border: none;
-    border-radius: 8px;
+    padding: 12px 20px;
+    text-align: left;
+    font-size: 14px;
+    border-radius: 6px;
     cursor: pointer;
-    font-weight: 700;
-    font-family: 'EB Garamond', serif;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.2s;
 }
 
 .logout-btn:hover {
