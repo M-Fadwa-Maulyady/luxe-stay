@@ -53,6 +53,20 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 });
 
 
+
+
+// Halaman profil
+Route::get('/profile', function () {
+    return view('profile');
+})->name('profile');
+
+Route::get('/landing', function () {
+    return view('landing');
+})->name('landing');
+
+
+
+
 /*
 |--------------------------------------------------------------------------
 | ADMIN ROUTES (ROLE: admin)
@@ -120,3 +134,4 @@ Route::middleware(['auth', 'role:admin'])
 */
 Route::get('/contact', [ContactController::class, 'index']);
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
